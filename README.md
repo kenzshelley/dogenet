@@ -1,5 +1,3 @@
 dogenet
 =======
-testing against 403 error
-
-Jamie test
+Made with love in A2 by Matt Grossman, Mackenzie Shelley, Jamie Sookprasong, and Damian Wieczorek at the Google 24HoursOfGood Hackathon
