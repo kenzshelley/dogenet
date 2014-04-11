@@ -1,7 +1,6 @@
 BeautifulSoup==3.2.1
 Flask==0.9
 Jinja2==2.6
-Pillow==2.4.0
 Werkzeug==0.8.3
 argparse==1.1
 backports.ssl-match-hostname==3.4.0.2
