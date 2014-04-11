@@ -1,0 +1,38 @@
+!!! 5
+html(lang="en")
+  head
+    title= title
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    // css
+    link(rel="stylesheet", media="screen", href="//getbootstrap.com/dist/css/bootstrap.css")
+    link(rel="stylesheet", href="/css/style.css")
+      
+  body
+    div.top.separator.fast-animate
+      img#drawer-icon(src="/img/ic_drawer.png")
+    .container.fast-animate
+      div.sidebar.slow-animate
+        ul.nav.nav-sidebar
+          li.active
+            a(href="#") Home
+          li
+            a(href="#") Herp
+          li
+            a(href="#") Derp
+          li
+            a(href="#") Foobar
+      h2(style="vertical-align: middle;")
+        a(href="/resume.pdf") Coming soon...
+    div.bottom.separator.fast-animate
+      //- img(src="/img/wallpaper-2984723.png")
+    div.vertical.flip-container.fast-animate(ontouchstart="this.classList.toggle('hover');")
+      div.flipper
+        div.front
+          //- img(src="/img/logo.png")
+        div.back
+          //- img(src="/img/logo.jpg")
+
+  // js
+  script(src="//code.jquery.com/jquery.js", type='text/javascript')
+  script(src="//getbootstrap.com/dist/js/bootstrap.js", type="text/javascript")
+  script(src="js/main.js", type='text/javascript')
