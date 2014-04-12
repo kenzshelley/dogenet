@@ -87,6 +87,8 @@ def get_url(path):
   host = request.headers.get("Host")
   if path.startswith("http://"):
     return path
+  elif host == "127.0.0.1:3000":
+    return None
   return "http://%s/%s" % (host, path)
 
 def simple_rr(url, ip, u=None, p=None):
@@ -126,31 +128,36 @@ def catch_all(path):
 
 @app.route('/rickroll')
 def rick_roll():
+  print "rick rolling"
   return simple_rr(None, None)
 
 @app.route('/login')
 def login_page():
+  print "da login paaaage"
   return render_template('login.html')
-
-@app.route('/clients')
-def wifi_clients():
-  r = requests.get("http://192.168.1.1/Status_Lan.live.asp", auth=('doge', 'doge7'))
-  return Response(stream_with_context(r.iter_content()), content_type = r.headers.get('content-type', "text/json"))
 
 # this guy handles static files
 @app.route('/public/<path:filename>')
-@app.route('/images/<path:filename>')
+# @app.route('/images/<path:filename>')
 def send_pic(filename):
   print "Getting static: %s" % filename
   return send_from_directory('./public/', filename)
 
 @app.route('/favicon.ico')
 def ignore():
+  print "wat"
   return send_pic('wat')
+
+@app.route('/clients')
+def wifi_clients():
+  print "Doing stuff!"
+  r = requests.get("http://192.168.1.1/Status_Lan.live.asp", auth=('doge', 'doge7'))
+  return Response(stream_with_context(r.iter_content()), content_type = r.headers.get('content-type', "text/json"))
+
 
 if __name__ == '__main__':
   # Bind to PORT if defined (on production)
   port = int(os.environ.get('PORT', 3000))
   
-  app.run(host='0.0.0.0', port=port, debug=True, threaded=False)
+  app.run(host='0.0.0.0', port=port, debug=True, threaded=True)
 
