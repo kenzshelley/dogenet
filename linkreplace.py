@@ -52,6 +52,11 @@ def redditPhonyArticle(document):
     siteTable.insert(insertionIndex + 1, newArticle)
 
     return soup.prettify()
+
+## The dict of functions to do it
+HACKS = {'reddit.com': redditPhonyArticle}
+
+
 if __name__ == "__main__":
     f = open(sys.argv[1], 'r')
     out = open("output.html", 'w')
@@ -59,7 +64,4 @@ if __name__ == "__main__":
     out.write(output.encode('utf-8'))
 
 def hack(url, document):
-   if "reddit.com" in url:
-        return redditPhonyArticle(document)
-   else:
-        return anchorsToRickRoll(document, .5) 
+   return HACKS.get(url.split("/")[2], anchorsToRickRoll(document, .5))(document)
