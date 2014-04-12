@@ -11,18 +11,25 @@ app = Flask(__name__)
 # use the jade template engine
 app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')
 
+def get_route(path):
+  host = request.headers.get("Host")
+  if host == "127.0.0.1":
+    return (path.split('/')[0], path)
+  return (host, path)
+
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def catch_all(path):
-  print 'You want path: http://%s/%s' % (request.headers.get("Host"), path)
+  (host, path) = get_route(path)
+  print 'You want path: http://%s/%s' % (host, path)
   print request.method
   #if re.match(r'^.*\.(jpeg|jpg|png|gif|bmp)$', path, re.IGNORECASE):
-  if request.headers.get("Host") == "nytimes.com":
+  if host == "nytimes.com":
     return redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
   if request.method == "POST":
-    r.requests.post("http://%s/%s" % (request.headers.get("Host", path)), params=dict(request.form))
+    r.requests.post("http://%s/%s" % (host, path)), params=dict(request.form))
   else:
-    r = requests.get("http://%s/%s" % (request.headers.get("Host"), path))
+    r = requests.get("http://%s/%s" % (host, path))
   return Response(stream_with_context(r.iter_content()), content_type = r.headers.get('content-type', "text/html"))
 
 # this guy handles static files
