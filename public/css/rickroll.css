@@ -2,7 +2,6 @@ body {
 	padding: 0px;
 }
 
-
 #test{
 	position: absolute;
 	z-index: 400;
@@ -31,7 +30,6 @@ body {
   position: absolute;
   left: 0;
   top: 0;
-  /*margin: auto;*/
   height: 100%;
   width:100%;
 }
@@ -61,11 +59,15 @@ body {
 }
 
 .handle {
-  /*position: absolute;*/
-  /*bottom: 0;*/
   height: 30px;
   width: 100%;
   display: table;
+  background-color: #FFEEC1;
+  color: #538BFF;
+  border-color: #538BFF;
+  border-style: groove;
+  border-bottom-width: 2px;
+
 }
 
 .handle > p {
@@ -80,7 +82,6 @@ body {
 
 .table-wrapper {
   height: 620px;
-  /*margin-bottom: 30px;*/
   overflow: scroll;
 }
 
