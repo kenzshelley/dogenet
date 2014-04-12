@@ -21,6 +21,11 @@ app = Flask(__name__)
 # use the jade template engine
 app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')
 
+def chunks(l, n):
+  "Yield successive n-sized chunks from l."
+  for i in xrange(0, len(l), n):
+    yield l[i:i+n]
+
 def get_client_obid(ip):
   params = {'where': json.dumps({'ip': ip})}
   r = requests.get(PARSE + CLASSES + CLIENT, headers=HEADERS, params=params)
@@ -135,6 +140,21 @@ def rick_roll():
 def login_page():
   print "da login paaaage"
   return render_template('login.html')
+
+@app.route('/clients')
+def wifi_clients():
+  r = requests.get("http://192.168.1.1/Status_Lan.live.asp", auth=('doge', 'doge7'))
+  stuff = [item.strip(" '") for item in re.search(r'(?<={dhcp_leases::).*(?=})', r.text).group(0).split(',')]
+  entries = list(entries_to_dict(chunks(stuff, 5)))
+  return Response(json.dumps(entries))
+
+def entries_to_dict(entries):
+  for entry in entries:
+    yield {'hostname': entry[0],
+           'ip': entry[1],
+           'mac': entry[2],
+           'conn_count': entry[3],
+           'ratio': entry[4]}
 
 # this guy handles static files
 @app.route('/public/<path:filename>')

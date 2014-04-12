@@ -48,6 +48,23 @@ body {
 }
 
 .scroll {
-    max-height: 100%;
-    overflow: auto;
+  max-height: 100%;
+  height: 500px;
+  overflow: auto;
+  position: absolute;
+  top: 0;
+}
+
+#leaderboard {
+  right: 0;
+  margin-right: 20px;
+}
+
+#historyboard {
+  left: 0;
+  margin-left: 20px;
+}
+
+.unopened {
+  top: -480px !important;
 }
