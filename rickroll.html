@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Art For Goodness' Sake</title>
+		<title>Rickroll</title>
 		<link href="rickroll.css" rel="stylesheet">
 
  </head>
@@ -10,9 +10,13 @@
  <body>
     <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
     
-
-    <div id="player" frameborder="0"></div>
-    <div id="stats"> 
+  <div class="background-video-wrapper">
+      <video id="background-video" loop preload="auto" autoplay>
+          <source src="rolled.webm" type="video/webm">
+      </video>
+  </div>
+    
+    <!-- <div id="stats"> 
       <table id="leaderboard">
         <thead>
           <tr>
@@ -24,11 +28,36 @@
           <td> Bob </td>
           <td> 5 </td>
         </tr>
-
       </table>
+    </div> -->
 
 
+  <div id="stats">
+    <div class="scroll" id="leaderboard">
+        <table border="1" id="leaderboard">
+          <tr>
+            <th>User</th>
+            <th># Rick Rolls</th>
+          </tr>
+
+           <tr><td>Top Text 1</td><td>Top Text 2</td></tr>
+           <tr><td>Top Text 1</td><td>Top Text 2</td></tr>
+           <tr><td>Top Text 1</td><td>Top Text 2</td></tr>
+           <tr><td>Top Text 1</td><td>Top Text 2</td></tr>
+           <tr><td>Top Text 1</td><td>Top Text 2</td></tr>
+           <tr><td>Top Text 1</td><td>Top Text 2</td></tr>
+           <tr><td>Top Text 1</td><td>Top Text 2</td></tr>
+           <tr><td>Top Text 1</td><td>Top Text 2</td></tr>
+           <tr><td>Top Text 1</td><td>Top Text 2</td></tr>
+           <tr><td>Top Text 1</td><td>Top Text 2</td></tr>
+           <tr><td>Top Text 1</td><td>Top Text 2</td></tr>
+           <tr><td>Top Text 1</td><td>Top Text 2</td></tr>
+           <tr><td>Top Text 1</td><td>Top Text 2</td></tr>
+           <tr><td>Top Text 1</td><td>Top Text 2</td></tr>
+           <tr><td>Bottom Text</td><td>Bottom Text</td></tr>
+        </table>
     </div>
+  </div>
 
     <script>
 

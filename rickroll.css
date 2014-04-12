@@ -1,20 +1,32 @@
-
-
-#player{
-	/*position: absolute; 
-	width:100%;
-	height: 100%;
-	display: block;
-	clear:both;*/
-	z-index: 1;
-	min-height: 100%;
-	width: 100%;
+#background-video{
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  height: 100%;
+  width:100%;
+  z-index:0;
+  background-color: black;
+  color: black;
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  transition: all 0.4s ease;
 }
 
 #stats{
 	position: relative;
-	z-index: 100;
 	color:blue;
+}
+
+table {
+    width: 500px;
+}
+
+.scroll {
+    max-height: 200px;
+    overflow: auto;
 }
 
 #leaderboard{
@@ -25,9 +37,10 @@
 	background:#BEE4F7;
 	margin:20px;
 	border:#ccc 1px solid;
+	width: 300px;
 	text-align: center;
-	margin-right: auto;
 	margin-left: auto;
+	right: 1000px;
 }
 
 table tr{
@@ -35,6 +48,7 @@ table tr{
 	border-top:1px solid #fafafa;
 	border-bottom:1px solid #e0e0e0;
 }
+
 table thead tr{
 	font-weight: bold;
 	background: #BEE4F7
