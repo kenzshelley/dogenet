@@ -1,4 +1,4 @@
-var ip = IP;
+var ip = window.IP;
 
 $(document).ready(function(){
 
