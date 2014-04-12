@@ -82,9 +82,9 @@ whitelist = ["youtube.com", "google.com", "googlevideo.com"]
 
 def make_request(url):
   if request.method == "POST":
-    r = requests.post(url, params=dict(request.form))
+    r = requests.post(url, data=dict(request.form))
   else:
-    r = requests.get(url)
+    r = requests.get(url, params=dict(request.args))
   return r
 
 
