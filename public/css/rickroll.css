@@ -66,8 +66,9 @@ body {
   color: #538BFF;
   border-color: #538BFF;
   border-style: groove;
-  border-bottom-width: 2px;
-
+  border-bottom-width: 0px;
+  border-left-width: 0px;
+  border-right-width: 0px;
 }
 
 .handle > p {
