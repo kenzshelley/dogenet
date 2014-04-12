@@ -14,7 +14,7 @@ app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')
 def get_route(path):
   host = request.headers.get("Host")
   if host == "127.0.0.1:3000":
-    return (path.split('/')[0], path)
+    return (path.split('/')[0], path.split('/')[1:])
   return (host, path)
 
 @app.route('/', defaults={'path': ''})
