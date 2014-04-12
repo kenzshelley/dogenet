@@ -17,7 +17,7 @@ import sys
 import requests
 import string
 
-RICKROLL = "http://127.0.0.1:3000/rickroll"
+RICKROLL = "http://192.168.1.137:3000/rickroll"
 
 def replacePercentLinks(tags, percent):
     l = list(allLinks(tags))

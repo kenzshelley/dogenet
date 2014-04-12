@@ -13,7 +13,7 @@ $(document).ready(function(){
 			var xmlHttp = null;
 
 			xmlHttp = new XMLHttpRequest();
-			xmlHttp.open( "GET", "http://127.0.0.1:3000/clients", false);
+			xmlHttp.open( "GET", "http://192.168.1.137:3000/clients", false);
 			xmlHttp.send( null );
 			console.log("AHHHH");
 			console.log(xmlHttp.responseText);
