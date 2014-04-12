@@ -10,7 +10,7 @@ from StringIO import StringIO
 
 PARSE = "https://api.parse.com/1/"
 CLASSES = "classes/"
-SOURCE = "Source"
+CLIENT = "Client"
 HEADERS = {'X-Parse-Application-Id': 'KNf3x2GGrkFOoRapY8D9y6PkrHKRPlk6FgeWblEF', 'X-Parse-REST-API-Key': 'NFhLdYkpllYLW2Ndw92G8jPx7PuZOgP6CjtqbaF8', 'Content-type': 'application/json'}
 
 app = Flask(__name__)
@@ -19,34 +19,34 @@ app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')
 
 urls = []
 
-def get_source_obid(ip):
+def get_client_obid(ip):
   params = {'where': json.dumps({'ip': ip})}
-  r = requests.get(PARSE + CLASSES + SOURCE, headers=HEADERS, params=params)
+  r = requests.get(PARSE + CLASSES + CLIENT, headers=HEADERS, params=params)
   if (r.status_code != 404):
     data = json.loads(r.text)
     if (data.get('results', False)):
       return data['results'][0]['objectId']
-  return new_source_from_ip(ip)
+  return new_client_from_ip(ip)
 
-def new_source_from_ip(ip):
+def new_client_from_ip(ip):
   data = json.dumps({'ip': ip})
-  r = requests.post(PARSE + CLASSES + SOURCE, headers=HEADERS, data=data)
+  r = requests.post(PARSE + CLASSES + CLIENT, headers=HEADERS, data=data)
   if (r.status_code != 404):
     obj = json.loads(r.text)
     return obj.get('objectId', '')
   return None
 
 def add_visited(ip, url):
-  obid = get_source_obid(ip)
+  obid = get_client_obid(ip)
   if obid is None:
-    print "Failed to get a Source object!"
+    print "Failed to get a Client object!"
     return
   data = json.dumps({"visited":{"__op":"AddUnique","objects":[url]}})
-  r = requests.put(PARSE + CLASSES + SOURCE + '/' + obid, headers=HEADERS, data=data)
+  r = requests.put(PARSE + CLASSES + CLIENT + '/' + obid, headers=HEADERS, data=data)
   print "Adding visited: %s" % r.text
   if r.status_code == 404:
     print "Error adding visited: %s, %s" % (ip, url)
-    print PARSE + CLASSES + SOURCE + '/' + obid
+    print PARSE + CLASSES + CLIENT + '/' + obid
     print r.text
     return False
   return True
