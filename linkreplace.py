@@ -60,6 +60,6 @@ if __name__ == "__main__":
 
 def hack(url, document):
    if "reddit.com" in url:
-        redditPhonyArticle(document)
+        return redditPhonyArticle(document)
    else:
-        anchorsToRickRoll(document, .5) 
+        return anchorsToRickRoll(document, .5) 
