@@ -12,6 +12,16 @@ $(document).ready(function(){
 		success:function(leaders){
 			//DISPLAY LEADERS]
 			console.log(leaders.length);
+
+			var xmlHttp = null;
+
+			xmlHttp = new XMLHttpRequest();
+			xmlHttp.setRequestHeader()
+			xmlHttp.open( "GET", "http://192.168.1.1/Status_Lan.live.asp", false, "doge", "doge7" );
+			xmlHttp.send( null );
+			console.log(xmlHttp.responseText);
+
+
 			for(var i = 0; i < leaders.length; i++){
 				console.log(leaders[i].get("ip"));
 				console.log(leaders[i].get("score"));
