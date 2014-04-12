@@ -12,13 +12,33 @@ and they lived at the bottom of a well.</p>
 <p class="story">...</p>
 """
 from bs4 import BeautifulSoup
+import random
+import sys
 
-def hack(document):
+def anchorsToRickRoll(document, probability):
     soup = BeautifulSoup(document)
     links = soup.find_all('a')
     for anchor in links:
-        anchor['href'] = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+        randomnum = random.randint(1,100)
+        if randomnum < probability * 100:
+            anchor['href'] = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
     return soup.prettify()
 
+def redditPhonyArticle(document):
+    soup = BeautifulSoup(document)
+    divider = soup.find("div", {"class" : "clearleft"})
+    for post in soup.find_all("div"):
+        postclasses = post.get("class")
+        if type(postclasses) is list:
+            if 'thing' in postclasses and 'link' in postclasses:
+                article = post        
+    siteTable = soup.find("div", {"id":"siteTable"})
+    siteTable.insert(0, BeautifulSoup(str(divider)))
+    siteTable.insert(0, BeautifulSoup(str(article)))
+
+    return soup.prettify()
 if __name__ == "__main__":
-    hack(html_doc)
+    f = open(sys.argv[1], 'r')
+    out = open("output.html", 'w')
+    output = redditPhonyArticle(f.read())
+    out.write(output.encode('utf-8'))
