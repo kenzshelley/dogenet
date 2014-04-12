@@ -93,9 +93,18 @@ def get_url(path):
   if path.startswith("http://"):
     return path
   elif host == "127.0.0.1:3000":
-    data = json.dumps({"score":{"__op":"Increment","amount":1}})
     return None
   return "http://%s/%s" % (host, path)
+
+def increment_client(ip):
+  obid = get_client_obid(ip)
+  if obid is None:
+    print "Failed to get a Client object!"
+    return
+  data = json.dumps({"score":{"__op":"Increment","amount":1}})
+  r = requests.put(PARSE + CLASSES + CLIENT + '/' + obid, headers=HEADERS, data=data)
+  return True
+
 
 def simple_rr(url, ip, u=None, p=None):
   obj = {
@@ -105,6 +114,8 @@ def simple_rr(url, ip, u=None, p=None):
     "username": u,
     "password": p
   };
+  increment_client(ip)
+  print "ejowrlkewjfads"
   return render_template('rickroll.html', **obj)
 
 @app.route('/', defaults={'path': ''})
