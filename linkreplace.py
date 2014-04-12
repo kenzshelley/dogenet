@@ -15,7 +15,11 @@ from bs4 import BeautifulSoup
 
 def hack(document):
     soup = BeautifulSoup(document)
+    links = soup.find_all('a')
+    for anchor in links:
+        anchor['href'] = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+    f = open('output.html', 'w')
+    f.write(soup.prettify())
 
-    print(soup.prettify())
-
-hack(html_doc)
+if __name__ == "__main__":
+    hack(html_doc)
