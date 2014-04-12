@@ -15,6 +15,20 @@ from bs4 import BeautifulSoup
 import random
 import sys
 
+RICKROLL = "http://127.0.0.1:3000/rickroll"
+
+def replacePercentLinks(tags, percent):
+    l = allLinks(tags)
+    links = random.sample(l, percent*len(l))
+    for link in links:
+        link['href'] = RICKROLL
+
+def allLinks(tags):
+    for tag in tags:
+        links = post.find_all('a')
+        for link in links:
+            yield link
+
 def anchorsToRickRoll(document, probability):
     soup = BeautifulSoup(document)
     links = soup.find_all('a')
@@ -53,8 +67,16 @@ def redditPhonyArticle(document):
 
     return soup.prettify()
 
+def stackOverflow(document):
+    soup = BeautifulSoup(document)
+    posts = soup.find_all("div", {'class': 'post-text'})
+    comments = soup.find_all("span", {'class': 'comment-copy'})
+    tags = posts + comments
+    return soup.prettify()
+
 ## The dict of functions to do it
-HACKS = {'reddit.com': redditPhonyArticle}
+HACKS = {'reddit.com': redditPhonyArticle,
+         'stackoverflow.com': stackOverflow}
 
 
 if __name__ == "__main__":
