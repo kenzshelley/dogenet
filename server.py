@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 from flask import Flask, render_template, send_from_directory, abort, redirect, url_for, request, make_response, Response, stream_with_context, send_file, jsonify
 import pyjade
 from StringIO import StringIO
+from linkreplace import hack
 
 PARSE = "https://api.parse.com/1/"
 CLASSES = "classes/"
@@ -72,6 +73,16 @@ def insecure_login(form):
         return (user, pasw)
   return (None, None)
 
+whitelist = ["youtube.com", "google.com", "googlevideo.com"]
+
+def make_request(url):
+  if request.method == "POST":
+    r = requests.post(url, params=dict(request.form))
+  else:
+    r = requests.get(url)
+  return r
+
+
 def get_url(path):
   host = request.headers.get("Host")
   if path.startswith("http://"):
@@ -108,7 +119,13 @@ def catch_all(path):
       return simple_rr(url, ip, u, p)
     r = requests.post(url, data=dict(request.form))
   else:
-    r = requests.get(url)
+    r = make_request(url)
+    for entry in whitelist:
+        if url.split("/")[2].endswith(entry):
+            print url.upper()
+            return Response(stream_with_context(r.iter_content()), content_type = r.headers.get('content-type', "text/html"))
+    if "text/html" in r.headers.get('content-type', "text/plain"):
+        return Response(hack(r.text))
   return Response(stream_with_context(r.iter_content()), content_type = r.headers.get('content-type', "text/html"))
 
 @app.route('/login')
@@ -136,6 +153,5 @@ if __name__ == '__main__':
   # Bind to PORT if defined (on production)
   port = int(os.environ.get('PORT', 3000))
   
-  app.run(host='0.0.0.0', port=port, debug=True, threaded=True)
-
+  app.run(host='0.0.0.0', port=port, debug=True, threaded=False)
 
