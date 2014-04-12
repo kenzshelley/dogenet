@@ -93,6 +93,7 @@ def get_url(path):
   if path.startswith("http://"):
     return path
   elif host == "127.0.0.1:3000":
+    data = json.dumps({"score":{"__op":"Increment","amount":1}})
     return None
   return "http://%s/%s" % (host, path)
 

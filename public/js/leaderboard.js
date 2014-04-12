@@ -41,6 +41,12 @@ $(document).ready(function(){
 				cell1.innerHTML = name;
 				cell2.innerHTML = leaders[i].get("score");
 			}
+
+			// drop the panel down
+			window.setTimeout(function() {
+				document.querySelector('#leaderboard').classList.remove('unloaded');
+			}, 1000);
+			
 		}
 	});
 

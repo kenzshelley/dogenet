@@ -32,6 +32,11 @@ $(document).ready(function(){
 					break;
 				}
 			}	
+
+			// drop the panel down
+			window.setTimeout(function() {
+				document.querySelector('#historyboard').classList.remove('unloaded');
+			}, 1000);
 		}
 	});
 
