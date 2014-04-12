@@ -55,4 +55,11 @@ $(document).ready(function(){
 			}
 		}
 	});
+
+	// click listener for the handle
+	console.log("mega wat");
+	$('#leaderboard-handle').on('click', function() {
+		console.log("wat")
+		document.querySelector('#leaderboard').classList.toggle('unopened');
+	});
 });
