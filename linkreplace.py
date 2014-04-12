@@ -58,12 +58,15 @@ def anchorsToRickRoll(document, probability):
 def redditPhonyArticle(document):
     soup = BeautifulSoup(document)
     divider = soup.find("div", {"class" : "clearleft"})
+
+    #will find the last article (should find the first though?)
     for post in soup.find_all("div"):
         postclasses = post.get("class")
         if type(postclasses) is list:
             if 'thing' in postclasses and 'link' in postclasses:
                 article = post        
 
+    #ensures we insert at a even index
     insertionIndex = random.randint(1,20)
     if (insertionIndex%2 == 1):
         insertionIndex = insertionIndex + 1
@@ -105,5 +108,6 @@ if __name__ == "__main__":
     output = redditPhonyArticle(f.read())
     out.write(output.encode('utf-8'))
 
+## master routing function that all html goes through
 def hack(url, document):
    return HACKS.get(url.split("/")[2], anchors)(document)
