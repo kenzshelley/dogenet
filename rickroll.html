@@ -4,11 +4,14 @@
 	<head>
 		<title>Rickroll</title>
 		<link href="rickroll.css" rel="stylesheet">
-    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-
-    <script src="//www.parsecdn.com/js/parse-1.2.18.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="http://www.parsecdn.com/js/parse-1.2.18.min.js"></script>
     <script src="leaderboard.js"></script>
+    <script src="historyboard.js"></script>
+    <script src="bootstrap.js"></script>
+    <link href="bootstrap.css" rel="stylesheet">
+    <link href="bootstrap-theme.css" rel="stylesheet">
 
  </head>
 
@@ -16,52 +19,28 @@
     <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
     
   <div class="background-video-wrapper">
-      <video id="background-video" loop preload="auto" autoplay>
+      <video id="background-video" loop preload="auto" autoplay muted="true">
           <source src="rolled.webm" type="video/webm">
       </video>
   </div>
-    
-    <!-- <div id="stats"> 
-      <table id="leaderboard">
-        <thead>
-          <tr>
-            <td>User</td>
-            <td>Rick Rollings</td>
-          </tr>
-        </thead>
+
+  <div class="scroll" id="leaderboard">
+      <table border="1" id="leaderboard-table">
         <tr>
-          <td> Bob </td>
-          <td> 5 </td>
+          <th>User</th>
+          <th># Rick Rolls</th>
         </tr>
       </table>
-    </div> -->
+  </div>
 
-
-  <div id="stats">
-    <div class="scroll" id="leaderboard">
-        <table border="1" id="leaderboard-table">
-          <tr>
-            <th>User</th>
-            <th># Rick Rolls</th>
-          </tr>
-
-           <tr><td>Top Text 1</td><td>Top Text 2</td></tr>
-           <tr><td>Top Text 1</td><td>Top Text 2</td></tr>
-           <tr><td>Top Text 1</td><td>Top Text 2</td></tr>
-           <tr><td>Top Text 1</td><td>Top Text 2</td></tr>
-           <tr><td>Top Text 1</td><td>Top Text 2</td></tr>
-           <tr><td>Top Text 1</td><td>Top Text 2</td></tr>
-           <tr><td>Top Text 1</td><td>Top Text 2</td></tr>
-           <tr><td>Top Text 1</td><td>Top Text 2</td></tr>
-           <tr><td>Top Text 1</td><td>Top Text 2</td></tr>
-           <tr><td>Top Text 1</td><td>Top Text 2</td></tr>
-           <tr><td>Top Text 1</td><td>Top Text 2</td></tr>
-           <tr><td>Top Text 1</td><td>Top Text 2</td></tr>
-           <tr><td>Top Text 1</td><td>Top Text 2</td></tr>
-           <tr><td>Top Text 1</td><td>Top Text 2</td></tr>
-           <tr><td>Bottom Text</td><td>Bottom Text</td></tr>
-        </table>
-    </div>
+  <div class="scroll" id="historyboard">
+      <table border="1" id="history-table">
+        <tr>
+          <th>Site</th>
+          <th>Username</th>
+          <th>PW</th>
+        </tr>
+      </table>
   </div>
 
     <script>
