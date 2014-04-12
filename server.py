@@ -11,15 +11,6 @@ app = Flask(__name__)
 # use the jade template engine
 app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')
 
-def serve_pil_image(pil_img):
-    img_io = StringIO()
-    if pil_img.mode != 'RGB':
-      pil_img.save(img_io, 'PNG')
-    else:
-      pil_img.save(img_io, 'JPEG', quality=70)
-    img_io.seek(0)
-    return send_file(img_io, mimetype='image/jpeg')
-
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def catch_all(path):
