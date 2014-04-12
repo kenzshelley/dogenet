@@ -1,5 +1,12 @@
 body {
 	padding: 0px;
+  height:100%;
+}
+
+#ideas{
+  position: absolute;
+  z-index: 800;
+  min-height: 100%;
 }
 
 
