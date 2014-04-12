@@ -11,22 +11,13 @@ app = Flask(__name__)
 # use the jade template engine
 app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')
 
-def serve_pil_image(pil_img):
-    img_io = StringIO()
-    if pil_img.mode != 'RGB':
-      pil_img.save(img_io, 'PNG')
-    else:
-      pil_img.save(img_io, 'JPEG', quality=70)
-    img_io.seek(0)
-    return send_file(img_io, mimetype='image/jpeg')
-
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def catch_all(path):
   print 'You want path: http://%s/%s' % (request.headers.get("Host"), path)
   print request.method
   #if re.match(r'^.*\.(jpeg|jpg|png|gif|bmp)$', path, re.IGNORECASE):
-  if request.headers.get("Host") == "imgur.com":
+  if request.headers.get("Host") == "nytimes.com":
     return redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
   if request.method == "POST":
     r.requests.post("http://%s/%s" % (request.headers.get("Host", path)), params=dict(request.form))
