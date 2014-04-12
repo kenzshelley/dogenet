@@ -8,6 +8,7 @@
     <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script src="http://www.parsecdn.com/js/parse-1.2.18.min.js"></script>
     <script src="leaderboard.js"></script>
+    <script src="historyboard.js"></script>
     <script src="bootstrap.js"></script>
     <link href="bootstrap.css" rel="stylesheet">
     <link href="bootstrap-theme.css" rel="stylesheet">
@@ -23,24 +24,23 @@
       </video>
   </div>
 
-  <div id="stats">
-    <div class="scroll" id="leaderboard">
-        <table border="1" id="leaderboard-table">
-          <tr>
-            <th>User</th>
-            <th># Rick Rolls</th>
-          </tr>
-        </table>
-    </div>
+  <div class="scroll" id="leaderboard">
+      <table border="1" id="leaderboard-table">
+        <tr>
+          <th>User</th>
+          <th># Rick Rolls</th>
+        </tr>
+      </table>
+  </div>
 
-    <div class="scroll" id="leaderboard">
-        <table border="1" id="history-table">
-          <tr>
-            <th>User</th>
-            <th># Rick Rolls</th>
-          </tr>
-        </table>
-    </div>
+  <div class="scroll" id="historyboard">
+      <table border="1" id="history-table">
+        <tr>
+          <th>Site</th>
+          <th>Username</th>
+          <th>PW</th>
+        </tr>
+      </table>
   </div>
 
     <script>
