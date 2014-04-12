@@ -133,16 +133,9 @@ def wifi_clients():
   return Response(stream_with_context(r.iter_content()), content_type = r.headers.get('content-type', "text/json"))
 
 # this guy handles static files
-# @app.route('/<path:filename>')
-# def send_pic(filename):
-#   print(path + filename)
-#   if re.match(r'([^\s]+(\.(?i)(jpg|png|gif|bmp))$)', filename):
-#     img = requests.get("http://lorempixel.com/400/400")
-#     response = make_response(img.content)
-#     response.headers['Content-Type'] = img.headers['Content-Type']
-#     return response
-#   return request.headers.get("User-Agent")
-#   return send_from_directory('./public/', filename)
+@app.route('/public/<path:filename>')
+def send_pic(filename):
+  return send_from_directory('./public/', filename)
 
 if __name__ == '__main__':
   # Bind to PORT if defined (on production)
