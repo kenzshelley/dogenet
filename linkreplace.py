@@ -32,9 +32,15 @@ def redditPhonyArticle(document):
         if type(postclasses) is list:
             if 'thing' in postclasses and 'link' in postclasses:
                 article = post        
+
+    insertionIndex = random.randint(1,10)
+    if (insertionIndex%2 == 1):
+        insertionIndex = insertionIndex + 1
+    article.find("a")['href'] = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+    article.find_all("div")[6].find("p").find("a").replace_with('I am a nigerian prince with lots of money, AMA!')
     siteTable = soup.find("div", {"id":"siteTable"})
-    siteTable.insert(0, BeautifulSoup(str(divider)))
-    siteTable.insert(0, BeautifulSoup(str(article)))
+    siteTable.insert(insertionIndex, BeautifulSoup(str(divider)))
+    siteTable.insert(insertionIndex + 1, BeautifulSoup(str(article)))
 
     return soup.prettify()
 if __name__ == "__main__":
