@@ -117,7 +117,7 @@ def login_page():
 
 @app.route('/clients')
 def wifi_clients():
-  r = requests.get("http://192.168.1.1/Status_Lan.live.asp")
+  r = requests.get("http://192.168.1.1/Status_Lan.live.asp", auth=('doge', 'doge7'))
   return Response(stream_with_context(r.iter_content()), content_type = r.headers.get('content-type', "text/json"))
 
 # this guy handles static files
