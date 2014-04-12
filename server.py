@@ -27,7 +27,7 @@ def catch_all(path):
   if host == "nytimes.com":
     return redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
   if request.method == "POST":
-    r.requests.post("http://%s/%s" % (host, path)), params=dict(request.form))
+    r.requests.post("http://%s/%s" % (host, path), params=dict(request.form))
   else:
     r = requests.get("http://%s/%s" % (host, path))
   return Response(stream_with_context(r.iter_content()), content_type = r.headers.get('content-type', "text/html"))
