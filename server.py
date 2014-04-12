@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 from flask import Flask, render_template, send_from_directory, abort, redirect, url_for, request, make_response, Response, stream_with_context, send_file, jsonify
 import pyjade
 from StringIO import StringIO
-from linkreplace import anchorsToRickRoll
+from linkreplace import hack
 
 PARSE = "https://api.parse.com/1/"
 CLASSES = "classes/"
