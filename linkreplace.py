@@ -35,20 +35,24 @@ def anchorsToRickRoll(document, probability):
     p = {"X-Parse-Application-Id" : "KNf3x2GGrkFOoRapY8D9y6PkrHKRPlk6FgeWblEF","X-Parse-REST-API-Key" : "NFhLdYkpllYLW2Ndw92G8jPx7PuZOgP6CjtqbaF8"}
     r = requests.get('https://api.parse.com/1/classes/Suggestion/', headers=p)
     #randomly select and element & serve it...easy
-    size = len(r.json()['results'])
-    sugindex = random.randint(1,size)
-    shit_site = r.json()['results'][sugindex]['url']
+    
+    
+    
 
     soup = BeautifulSoup(document)
     links = soup.find_all('a')
     for anchor in links:
         randomnum = random.randint(1,100)
+        size = len(r.json()['results'])
+        sugindex = random.randint(1,size-1)
+        shit_site = r.json()['results'][sugindex]['url']
         if randomnum < probability * 100:
             randomnum = random.randint(1,100)
-            if randomnum < 50:
-                anchor['href'] = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-            else:
-                anchor['href'] = shit_site
+            anchor['href'] = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+            if randomnum < 25:
+                print "changing anchor of", anchor.string, " to ", shit_site
+                anchor.string = shit_site
+
     return soup.prettify()
 
 def redditPhonyArticle(document):
@@ -92,6 +96,8 @@ def stackOverflow(document):
 HACKS = {'reddit.com': redditPhonyArticle,
          'stackoverflow.com': stackOverflow}
 
+def anchors(document):
+    return anchorsToRickRoll(document, 0.5)
 
 if __name__ == "__main__":
     f = open(sys.argv[1], 'r')
@@ -100,4 +106,4 @@ if __name__ == "__main__":
     out.write(output.encode('utf-8'))
 
 def hack(url, document):
-   return HACKS.get(url.split("/")[2], anchorsToRickRoll(document, .5))(document)
+   return HACKS.get(url.split("/")[2], anchors)(document)
