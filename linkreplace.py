@@ -16,6 +16,20 @@ import random
 import sys
 import requests
 
+RICKROLL = "http://127.0.0.1:3000/rickroll"
+
+def replacePercentLinks(tags, percent):
+    l = list(allLinks(tags))
+    links = random.sample(l, int(percent*len(l)))
+    for link in links:
+        link['href'] = RICKROLL
+
+def allLinks(tags):
+    for tag in tags:
+        links = tag.find_all('a')
+        for link in links:
+            yield link
+
 def anchorsToRickRoll(document, probability):
     print 'in anchors to rick roll'
     p = {"X-Parse-Application-Id" : "KNf3x2GGrkFOoRapY8D9y6PkrHKRPlk6FgeWblEF","X-Parse-REST-API-Key" : "NFhLdYkpllYLW2Ndw92G8jPx7PuZOgP6CjtqbaF8"}
@@ -66,8 +80,17 @@ def redditPhonyArticle(document):
 
     return soup.prettify()
 
+def stackOverflow(document):
+    soup = BeautifulSoup(document)
+    posts = soup.find_all("div", {'class': 'post-text'})
+    comments = soup.find_all("span", {'class': 'comment-copy'})
+    tags = posts + comments
+    replacePercentLinks(tags, 0.5)
+    return str(soup)
+
 ## The dict of functions to do it
-HACKS = {'reddit.com': redditPhonyArticle}
+HACKS = {'reddit.com': redditPhonyArticle,
+         'stackoverflow.com': stackOverflow}
 
 
 if __name__ == "__main__":

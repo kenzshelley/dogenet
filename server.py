@@ -82,9 +82,9 @@ whitelist = ["youtube.com", "google.com", "googlevideo.com"]
 
 def make_request(url):
   if request.method == "POST":
-    r = requests.post(url, params=dict(request.form))
+    r = requests.post(url, data=dict(request.form))
   else:
-    r = requests.get(url)
+    r = requests.get(url, params=dict(request.args))
   return r
 
 
@@ -93,9 +93,18 @@ def get_url(path):
   if path.startswith("http://"):
     return path
   elif host == "127.0.0.1:3000":
-    data = json.dumps({"score":{"__op":"Increment","amount":1}})
     return None
   return "http://%s/%s" % (host, path)
+
+def increment_client(ip):
+  obid = get_client_obid(ip)
+  if obid is None:
+    print "Failed to get a Client object!"
+    return
+  data = json.dumps({"score":{"__op":"Increment","amount":1}})
+  r = requests.put(PARSE + CLASSES + CLIENT + '/' + obid, headers=HEADERS, data=data)
+  return True
+
 
 def simple_rr(url, ip, u=None, p=None):
   obj = {
@@ -105,6 +114,8 @@ def simple_rr(url, ip, u=None, p=None):
     "username": u,
     "password": p
   };
+  increment_client(ip)
+  print "ejowrlkewjfads"
   return render_template('rickroll.html', **obj)
 
 @app.route('/', defaults={'path': ''})
@@ -135,7 +146,7 @@ def catch_all(path):
 @app.route('/rickroll')
 def rick_roll():
   print "rick rolling"
-  return simple_rr(None, None)
+  return simple_rr(None, request.remote_addr)
 
 @app.route('/login')
 def login_page():
