@@ -8,7 +8,7 @@ $(document).ready(function(){
 	var leader = Parse.Object.extend("Client");
 	var query = new Parse.Query(leader);
 	query.find({
-		success:function(leaders){
+		success:function(leaders) {
 			//DISPLAY HISTORY
 			console.log(leaders.length);
 			for(var i = 0; i < leaders.length; i++){
@@ -33,5 +33,10 @@ $(document).ready(function(){
 				}
 			}	
 		}
+	});
+
+	// click listener for the handle
+	$('#historyboard-handle').on('click', function() {
+		document.querySelector('#historyboard').classList.toggle('unopened');
 	});
 });

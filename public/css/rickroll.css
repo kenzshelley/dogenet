@@ -45,9 +45,6 @@ body {
   z-index:0;
   background-color: black;
   color: black;
-  -webkit-transition: all 0.4s ease;
-  -moz-transition: all 0.4s ease;
-  transition: all 0.4s ease;
 }
 
 #stats{
@@ -57,9 +54,33 @@ body {
 .scroll {
   max-height: 100%;
   height: 500px;
-  overflow: auto;
+  overflow: hidden;
   position: absolute;
   top: 0;
+  border-radius: 0 0 4px 4px !important;
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+
+.handle {
+  /*position: absolute;*/
+  /*bottom: 0;*/
+  height: 30px;
+  width: 100%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .5);
+  -moz-box-shadow: 0 0 10px rgba(0, 0, 0, .5);
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, .5);
+}
+
+.table {
+  margin-bottom: 0 !important;
+}
+
+.table-wrapper {
+  height: 470px;
+  /*margin-bottom: 30px;*/
+  overflow: scroll;
 }
 
 #leaderboard {
@@ -73,5 +94,5 @@ body {
 }
 
 .unopened {
-  top: -480px !important;
+  top: -470px !important;
 }

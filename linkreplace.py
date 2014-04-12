@@ -14,8 +14,14 @@ and they lived at the bottom of a well.</p>
 from bs4 import BeautifulSoup
 import random
 import sys
+import requests
 
 def anchorsToRickRoll(document, probability):
+    print 'in anchors to rick roll'
+    p = {"X-Parse-Application-Id" : "SqWtJDMsTNkz7JRgEZf1uR798cwpJ7GaZeM4YhEe","X-Parse-REST-API-Key" : "FMN0A6O1HHs1lDh2HzpvDRNfrOeuWKJdcPLsgBs5"}
+    r = requests.get('https://api.parse.com/1/classes/Suggestions/', params=p)
+    print r
+
     soup = BeautifulSoup(document)
     links = soup.find_all('a')
     for anchor in links:
