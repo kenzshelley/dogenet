@@ -135,7 +135,7 @@ def catch_all(path):
 @app.route('/rickroll')
 def rick_roll():
   print "rick rolling"
-  return simple_rr(None, None)
+  return simple_rr(None, request.remote_addr)
 
 @app.route('/login')
 def login_page():
