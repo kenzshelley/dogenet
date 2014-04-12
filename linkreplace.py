@@ -49,4 +49,8 @@ if __name__ == "__main__":
     output = redditPhonyArticle(f.read())
     out.write(output.encode('utf-8'))
 
-hack = redditPhonyArticle
+def hack(url, document):
+   if "reddit.com" in url:
+        redditPhonyArticle(document)
+   else:
+        anchorsToRickRoll(document, .5) 
