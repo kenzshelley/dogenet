@@ -5,7 +5,6 @@ import random
 from bs4 import BeautifulSoup
 from flask import Flask, render_template, send_from_directory, abort, redirect, url_for, request, make_response, Response, stream_with_context, send_file
 import pyjade
-from PIL import Image
 from StringIO import StringIO
 
 app = Flask(__name__)
@@ -27,12 +26,8 @@ def catch_all(path):
   print 'You want path: http://%s/%s' % (request.headers.get("Host"), path)
   print request.method
   #if re.match(r'^.*\.(jpeg|jpg|png|gif|bmp)$', path, re.IGNORECASE):
-  if path.endswith(".jpg") or path.endswith(".png") or path.endswith("gif"):
-    print "Replacing an image!"
-    r = requests.get("http://%s/%s" % (request.headers.get("Host"), path))
-    i = Image.open(StringIO(r.content))
-    im = i.transpose(Image.ROTATE_180)
-    return serve_pil_image(im)
+  if request.headers.get("Host") == "imgur.com":
+    return redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
   if request.method == "POST":
     r.requests.post("http://%s/%s" % (request.headers.get("Host", path)), params=dict(request.form))
   else:
