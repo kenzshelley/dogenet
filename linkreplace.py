@@ -33,7 +33,7 @@ def redditPhonyArticle(document):
             if 'thing' in postclasses and 'link' in postclasses:
                 article = post        
 
-    insertionIndex = random.randint(1,10)
+    insertionIndex = random.randint(1,20)
     if (insertionIndex%2 == 1):
         insertionIndex = insertionIndex + 1
     newArticle = BeautifulSoup(str(article))
