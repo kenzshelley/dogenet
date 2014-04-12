@@ -13,27 +13,27 @@ app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')
 
 urls = []
 
-def get_route(path):
+def get_url(path):
   host = request.headers.get("Host")
-  if host == "127.0.0.1:3000":
-    return (path.split('/')[0], ''.join(path.split('/')[1:]))
-  return (host, path)
+  if path.startswith("http://"):
+    return path
+  return "http://%s/%s" % (host, path)
 
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def catch_all(path):
-  (host, path) = get_route(path)
-  print 'You want path: http://%s/%s' % (host, path)
+  url = get_url(path)
+  print 'You want path: %s' % url
   print request.method
   urls.append(host)
   #print 'path is: %s' % (path)
   #if re.match(r'^.*\.(jpeg|jpg|png|gif|bmp)$', path, re.IGNORECASE):
-  if host == "nytimes.com":
+  if url.startswith("http://www.nytimes.com"):
     return redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
   if request.method == "POST":
-    r.requests.post("http://%s/%s" % (host, path), params=dict(request.form))
+    r.requests.post(url, params=dict(request.form))
   else:
-    r = requests.get("http://%s/%s" % (host, path))
+    r = requests.get(url)
   return Response(stream_with_context(r.iter_content()), content_type = r.headers.get('content-type', "text/html"))
 
 # this guy handles static files
