@@ -42,3 +42,5 @@ if __name__ == "__main__":
     out = open("output.html", 'w')
     output = redditPhonyArticle(f.read())
     out.write(output.encode('utf-8'))
+
+hack = redditPhonyArticle

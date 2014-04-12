@@ -1,0 +1,53 @@
+body {
+	padding: 0px;
+}
+
+
+#test{
+	position: absolute;
+	z-index: 400;
+	margin-left: auto;
+}
+
+#toggle_board{
+	margin-left:auto;
+	margin-right:185px;
+}
+
+#menu{
+	margin-right: -10px;
+}
+
+#toggle_history{
+	margin-left:150px;
+}
+
+#history{
+	margin-right: -200px;
+}
+
+#background-video{
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  height: 100%;
+  width:100%;
+  z-index:0;
+  background-color: black;
+  color: black;
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+
+#stats{
+	position: relative;
+}
+
+.scroll {
+    max-height: 100%;
+    overflow: auto;
+}
