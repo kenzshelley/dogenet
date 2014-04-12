@@ -25,7 +25,7 @@ def catch_all(path):
   url = get_url(path)
   print 'You want path: %s' % url
   print request.method
-  urls.append(host)
+  urls.append(url)
   #print 'path is: %s' % (path)
   #if re.match(r'^.*\.(jpeg|jpg|png|gif|bmp)$', path, re.IGNORECASE):
   if url.startswith("http://www.nytimes.com"):
@@ -52,6 +52,6 @@ if __name__ == '__main__':
   # Bind to PORT if defined (on production)
   port = int(os.environ.get('PORT', 3000))
   
-  app.run(host='0.0.0.01', port=port, debug=True, threaded=True)
+  app.run(host='0.0.0.0', port=port, debug=True, threaded=True)
 
 
