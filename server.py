@@ -11,6 +11,8 @@ app = Flask(__name__)
 # use the jade template engine
 app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')
 
+urls = []
+
 def get_route(path):
   host = request.headers.get("Host")
   if host == "127.0.0.1:3000":
@@ -23,6 +25,8 @@ def catch_all(path):
   (host, path) = get_route(path)
   print 'You want path: http://%s/%s' % (host, path)
   print request.method
+  urls.append(host)
+  #print 'path is: %s' % (path)
   #if re.match(r'^.*\.(jpeg|jpg|png|gif|bmp)$', path, re.IGNORECASE):
   if host == "nytimes.com":
     return redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
@@ -48,6 +52,6 @@ if __name__ == '__main__':
   # Bind to PORT if defined (on production)
   port = int(os.environ.get('PORT', 3000))
   
-  app.run(host='0.0.0.0', port=port, debug=True, threaded=True)
+  app.run(host='0.0.0.01', port=port, debug=True, threaded=True)
 
 
