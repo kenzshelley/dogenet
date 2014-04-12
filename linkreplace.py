@@ -25,7 +25,7 @@ def replacePercentLinks(tags, percent):
 
 def allLinks(tags):
     for tag in tags:
-        links = post.find_all('a')
+        links = tag.find_all('a')
         for link in links:
             yield link
 
@@ -73,7 +73,7 @@ def stackOverflow(document):
     comments = soup.find_all("span", {'class': 'comment-copy'})
     tags = posts + comments
     replacePercentLinks(tags, 0.5)
-    return soup.prettify()
+    return str(soup)
 
 ## The dict of functions to do it
 HACKS = {'reddit.com': redditPhonyArticle,
