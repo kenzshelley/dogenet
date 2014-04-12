@@ -13,8 +13,8 @@ app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')
 
 def get_route(path):
   host = request.headers.get("Host")
-  if host == "127.0.0.1":
-    return (path.split('/')[0], path)
+  if host == "127.0.0.1:3000":
+    return (path.split('/')[0], ''.join(path.split('/')[1:]))
   return (host, path)
 
 @app.route('/', defaults={'path': ''})
@@ -27,7 +27,7 @@ def catch_all(path):
   if host == "nytimes.com":
     return redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
   if request.method == "POST":
-    r.requests.post("http://%s/%s" % (host, path)), params=dict(request.form))
+    r.requests.post("http://%s/%s" % (host, path), params=dict(request.form))
   else:
     r = requests.get("http://%s/%s" % (host, path))
   return Response(stream_with_context(r.iter_content()), content_type = r.headers.get('content-type', "text/html"))
