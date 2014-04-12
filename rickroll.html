@@ -24,24 +24,44 @@
       </video>
   </div>
 
-  <div class="scroll" id="leaderboard">
-      <table border="1" id="leaderboard-table">
-        <tr>
-          <th>User</th>
-          <th># Rick Rolls</th>
-        </tr>
-      </table>
+
+  <div class="btn-group pull-right" id="toggle_board">
+    <button type="button" class="btn btn-default dropdown-toggle btn-lg" data-toggle="dropdown">
+      Show Leaders <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu pull-right" role="menu" id="menu">
+      <li><div class="scroll" id="leaderboard">
+        <table id="leaderboard-table" class="table table-striped table-hover">
+          <tr>
+            <th>User</th>
+            <th># Rick Rolls</th>
+          </tr>
+        </table>
+      </div>
+    </li>
+  </ul>
   </div>
 
-  <div class="scroll" id="historyboard">
-      <table border="1" id="history-table">
-        <tr>
-          <th>Site</th>
-          <th>Username</th>
-          <th>PW</th>
-        </tr>
-      </table>
+  <div class="btn-group pull-left" id="toggle_history">
+    <button type="button" class="btn btn-default dropdown-toggle btn-lg" data-toggle="dropdown">
+      Think You're Safe? <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu pull-right" role="menu" id="history">
+      <li>
+        <div class="scroll" id="historyboard">
+          <table id="history-table" class="table table-striped table-hover">
+            <tr>
+              <th>Site</th>
+              <th>Username</th>
+              <th>PW</th>
+            </tr>
+          </table>
+        </div>
+      </li>
+    </ul>
   </div>
+
+  
 
     <script>
 

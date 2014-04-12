@@ -2,6 +2,31 @@ body {
 	padding: 0px;
 }
 
+
+#test{
+	position: absolute;
+	z-index: 400;
+	margin-left: auto;
+}
+
+#toggle_board{
+	margin-left:auto;
+	background: #8FBFF2;
+	margin-right:185px;
+}
+
+#menu{
+	margin-right: -10px;
+}
+
+#toggle_history{
+	margin-left:150px;
+}
+
+#history{
+	margin-right: -200px;
+}
+
 #background-video{
   position: absolute;
   left: 0;
@@ -28,7 +53,7 @@ body {
     overflow: auto;
 }
 
-#history-table{
+/*#history-table{
 	font-family:Helvetica, sans-serif;
 	color:#666;
 	font-size:12px;
@@ -43,7 +68,11 @@ body {
 	left: 0;
 }
 
-#leaderboard-table{
+tr {
+	width:100px;
+}
+
+/*#leaderboard-table{
 	font-family:Helvetica, sans-serif;
 	color:#666;
 	font-size:12px;
@@ -65,13 +94,15 @@ table tr{
 }
 
 table thead tr{
+	text-align:center;
 	font-weight: bold;
 	background: #BEE4F7
 }
 
 table tr td{
+	text-align:center;
 	padding:15px;
 	border-top: 1px solid #ffffff;
 	border-bottom:1px solid #e0e0e0;
 	border-left: 1px solid #e0e0e0;
-}
+}*/
