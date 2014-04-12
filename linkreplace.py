@@ -18,8 +18,8 @@ import sys
 RICKROLL = "http://127.0.0.1:3000/rickroll"
 
 def replacePercentLinks(tags, percent):
-    l = allLinks(tags)
-    links = random.sample(l, percent*len(l))
+    l = list(allLinks(tags))
+    links = random.sample(l, int(percent*len(l)))
     for link in links:
         link['href'] = RICKROLL
 
@@ -72,6 +72,7 @@ def stackOverflow(document):
     posts = soup.find_all("div", {'class': 'post-text'})
     comments = soup.find_all("span", {'class': 'comment-copy'})
     tags = posts + comments
+    replacePercentLinks(tags, 0.5)
     return soup.prettify()
 
 ## The dict of functions to do it
