@@ -33,14 +33,23 @@ def redditPhonyArticle(document):
             if 'thing' in postclasses and 'link' in postclasses:
                 article = post        
 
-    insertionIndex = random.randint(1,10)
+    insertionIndex = random.randint(1,20)
     if (insertionIndex%2 == 1):
         insertionIndex = insertionIndex + 1
-    article.find("a")['href'] = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-    article.find_all("div")[6].find("p").find("a").replace_with('I am a nigerian prince with lots of money, AMA!')
+    newArticle = BeautifulSoup(str(article))
+    newArticle.find("a")['href'] = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+    articleDivs = newArticle.find_all("div")
+    for div in articleDivs:
+        if "entry" in div.get("class"):
+            textArea = div
+            break
+
+    textArea.find("p").find("a").append("I am a nigerian prince with lots of money, AMA!")
+    textArea.find("p").find("a")['href'] = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+    textArea.find("p").find("a").contents[0] = u''
     siteTable = soup.find("div", {"id":"siteTable"})
     siteTable.insert(insertionIndex, BeautifulSoup(str(divider)))
-    siteTable.insert(insertionIndex + 1, BeautifulSoup(str(article)))
+    siteTable.insert(insertionIndex + 1, newArticle)
 
     return soup.prettify()
 if __name__ == "__main__":
@@ -51,6 +60,6 @@ if __name__ == "__main__":
 
 def hack(url, document):
    if "reddit.com" in url:
-        redditPhonyArticle(document)
+        return redditPhonyArticle(document)
    else:
-        anchorsToRickRoll(document, .5) 
+        return anchorsToRickRoll(document, .5) 
