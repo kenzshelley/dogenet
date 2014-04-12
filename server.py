@@ -6,12 +6,21 @@ from bs4 import BeautifulSoup
 from flask import Flask, render_template, send_from_directory, abort, redirect, url_for, request, make_response, Response, stream_with_context, send_file
 import pyjade
 from StringIO import StringIO
+from linkreplace import hack
 
 app = Flask(__name__)
 # use the jade template engine
 app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')
 
 urls = []
+
+def make_request(url):
+  if request.method == "POST":
+    r = r.requests.post(url, params=dict(request.form))
+  else:
+    r = requests.get(url)
+  return r
+
 
 def get_url(path):
   host = request.headers.get("Host")
@@ -30,10 +39,11 @@ def catch_all(path):
   #if re.match(r'^.*\.(jpeg|jpg|png|gif|bmp)$', path, re.IGNORECASE):
   if url.startswith("http://www.nytimes.com"):
     return redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
-  if request.method == "POST":
-    r.requests.post(url, params=dict(request.form))
   else:
-    r = requests.get(url)
+    r = make_request(url)
+    if url.startswith("http://www.reddit.com"):
+      r.text = hack(r.text)
+      print r.text
   return Response(stream_with_context(r.iter_content()), content_type = r.headers.get('content-type', "text/html"))
 
 # this guy handles static files
@@ -53,5 +63,4 @@ if __name__ == '__main__':
   port = int(os.environ.get('PORT', 3000))
   
   app.run(host='0.0.0.0', port=port, debug=True, threaded=True)
-
 
