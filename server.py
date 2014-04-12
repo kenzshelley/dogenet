@@ -168,12 +168,6 @@ def ignore():
   print "wat"
   return send_pic('wat')
 
-@app.route('/clients')
-def wifi_clients():
-  print "Doing stuff!"
-  r = requests.get("http://192.168.1.1/Status_Lan.live.asp", auth=('doge', 'doge7'))
-  return Response(stream_with_context(r.iter_content()), content_type = r.headers.get('content-type', "text/json"))
-
 
 if __name__ == '__main__':
   # Bind to PORT if defined (on production)
