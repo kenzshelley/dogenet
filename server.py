@@ -111,6 +111,15 @@ def catch_all(path):
     r = requests.get(url)
   return Response(stream_with_context(r.iter_content()), content_type = r.headers.get('content-type', "text/html"))
 
+@app.route('/login')
+def login_page():
+  return render_template('login.html')
+
+@app.route('/clients')
+def wifi_clients():
+  r = requests.get("http://192.168.1.1/Status_Lan.live.asp")
+  return Response(stream_with_context(r.iter_content()), content_type = r.headers.get('content-type', "text/json"))
+
 # this guy handles static files
 # @app.route('/<path:filename>')
 # def send_pic(filename):
