@@ -104,6 +104,7 @@ def simple_rr(url, ip, u=None, p=None):
 def catch_all(path):
   # get the params
   url = get_url(path)
+  print "YOOOOO %s" % url
   ip = request.remote_addr
   # log the visit
   add_visited(ip, url)
@@ -138,8 +139,14 @@ def wifi_clients():
 
 # this guy handles static files
 @app.route('/public/<path:filename>')
+@app.route('/images/<path:filename>')
 def send_pic(filename):
+  print "Getting static: %s" % filename
   return send_from_directory('./public/', filename)
+
+@app.route('/favicon.ico')
+def ignore():
+  return send_pic('wat')
 
 if __name__ == '__main__':
   # Bind to PORT if defined (on production)
