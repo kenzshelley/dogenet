@@ -26,7 +26,7 @@ def catch_all(path):
   print 'You want path: http://%s/%s' % (request.headers.get("Host"), path)
   print request.method
   #if re.match(r'^.*\.(jpeg|jpg|png|gif|bmp)$', path, re.IGNORECASE):
-  if request.headers.get("Host") == "imgur.com":
+  if request.headers.get("Host") == "nytimes.com":
     return redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
   if request.method == "POST":
     r.requests.post("http://%s/%s" % (request.headers.get("Host", path)), params=dict(request.form))
