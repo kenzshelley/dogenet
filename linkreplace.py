@@ -18,8 +18,7 @@ def hack(document):
     links = soup.find_all('a')
     for anchor in links:
         anchor['href'] = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-    f = open('output.html', 'w')
-    f.write(soup.prettify())
+    return soup.prettify()
 
 if __name__ == "__main__":
     hack(html_doc)

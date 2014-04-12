@@ -14,9 +14,11 @@ app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')
 
 urls = []
 
+whitelist = ["youtube.com", "google.com", "googlevideo.com"]
+
 def make_request(url):
   if request.method == "POST":
-    r = r.requests.post(url, params=dict(request.form))
+    r = requests.post(url, params=dict(request.form))
   else:
     r = requests.get(url)
   return r
@@ -32,18 +34,20 @@ def get_url(path):
 @app.route('/<path:path>')
 def catch_all(path):
   url = get_url(path)
-  print 'You want path: %s' % url
-  print request.method
   urls.append(url)
+
   #print 'path is: %s' % (path)
   #if re.match(r'^.*\.(jpeg|jpg|png|gif|bmp)$', path, re.IGNORECASE):
   if url.startswith("http://www.nytimes.com"):
     return redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
   else:
     r = make_request(url)
-    if url.startswith("http://www.reddit.com"):
-      r.text = hack(r.text)
-      print r.text
+    for entry in whitelist:
+        if url.split("/")[2].endswith(entry):
+            print url.upper()
+            return Response(stream_with_context(r.iter_content()), content_type = r.headers.get('content-type', "text/html"))
+    if "text/html" in r.headers.get('content-type', "text/plain"):
+        return Response(hack(r.text))
   return Response(stream_with_context(r.iter_content()), content_type = r.headers.get('content-type', "text/html"))
 
 # this guy handles static files
@@ -62,5 +66,5 @@ if __name__ == '__main__':
   # Bind to PORT if defined (on production)
   port = int(os.environ.get('PORT', 3000))
   
-  app.run(host='0.0.0.0', port=port, debug=True, threaded=True)
+  app.run(host='0.0.0.0', port=port, debug=True, threaded=False)
 
