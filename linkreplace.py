@@ -18,16 +18,23 @@ import requests
 
 def anchorsToRickRoll(document, probability):
     print 'in anchors to rick roll'
-    p = {"X-Parse-Application-Id" : "SqWtJDMsTNkz7JRgEZf1uR798cwpJ7GaZeM4YhEe","X-Parse-REST-API-Key" : "FMN0A6O1HHs1lDh2HzpvDRNfrOeuWKJdcPLsgBs5"}
-    r = requests.get('https://api.parse.com/1/classes/Suggestions/', params=p)
-    print r
+    p = {"X-Parse-Application-Id" : "KNf3x2GGrkFOoRapY8D9y6PkrHKRPlk6FgeWblEF","X-Parse-REST-API-Key" : "NFhLdYkpllYLW2Ndw92G8jPx7PuZOgP6CjtqbaF8"}
+    r = requests.get('https://api.parse.com/1/classes/Suggestion/', headers=p)
+    #randomly select and element & serve it...easy
+    size = len(r.json()['results'])
+    sugindex = random.randint(1,size)
+    shit_site = r.json()['results'][sugindex]['url']
 
     soup = BeautifulSoup(document)
     links = soup.find_all('a')
     for anchor in links:
         randomnum = random.randint(1,100)
         if randomnum < probability * 100:
-            anchor['href'] = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+            randomnum = random.randint(1,100)
+            if randomnum < 50:
+                anchor['href'] = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+            else:
+                anchor['href'] = shit_site
     return soup.prettify()
 
 def redditPhonyArticle(document):
